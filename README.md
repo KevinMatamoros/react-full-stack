@@ -1,4 +1,4 @@
-# MERN Blog App 📝
+# MERN Articles App 📝
 
 A basic blog application built using the MERN stack (MongoDB, Express, React, and Node.js). It allows users to browse and read blog posts.
 
