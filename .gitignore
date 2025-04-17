@@ -1,0 +1,7 @@
+.qodo
+./backend/credentials.json
+./backend/node_modules
+./backend/package-lock.json
+./front end/node_modules
+./front end/package-lock.json
+./front end/.qodo
