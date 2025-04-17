@@ -2,6 +2,11 @@ import express from "express";
 import { MongoClient, ServerApiVersion } from "mongodb";
 import admin from "firebase-admin";
 import fs from "fs";
+import path from "path";
+
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const credentials = JSON.parse(fs.readFileSync("./credentials.json"));
 
@@ -15,7 +20,9 @@ app.use(express.json());
 let db;
 
 async function connectToDB() {
-  const uri = "mongodb://127.0.0.1:27017";
+  const uri = !process.env.MONGODB_USERNAME
+    ? "mongodb://127.0.0.1:27017"
+    : `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${DB_NAME}/?retryWrites=true&w=majority&appName=Cluster0`;
 
   const client = new MongoClient(uri, {
     serverApi: {
@@ -28,6 +35,12 @@ async function connectToDB() {
   await client.connect();
   db = client.db("full-stack-react-db");
 }
+
+app.use(express.static(path.join(__dirname, "../dist")));
+
+app.get(/^(?!\/api).+/, (req, res) => {
+  res.sendFile(path.join(__dirname, "../dist/index.html"));
+});
 
 app.get("/api/articles/:name", async (req, res) => {
   const { name } = req.params;
