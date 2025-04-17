@@ -9,7 +9,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 import Layout from "./Layout";
 import LoginPage from "./pages/LoginPage";
-import CreateAccountPage from "./pages/CreateAccountPAge";
+import CreateAccountPage from "./pages/CreateAccountPage";
 
 const routes = [
   {
